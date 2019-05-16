@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Chinahard.Dao.IUserLogin">
+<insert id="addUserLogin" parameterType="employeeLogin">
+		insert into
+		employeelogin(uid,PASSWORD) values(#{uid},#{PASSWORD})
+	
+	</insert>
+	<!--添加员工信息  -->
+	<insert id="addUserInfo" parameterType="employee">
+		insert into
+		employee(cid,userName,age,sex) values(#{cid},#{userName},#{age},#{sex})
+	</insert>
+	<!--添加公司公告  -->
+	
+	<insert id="saveann" parameterType="announcement">
+		insert into
+		announcement(announcement) values(#{announcement})
+	</insert>
+	<!--添加部门信息  -->
+	<insert id="CreateDept" parameterType="dept">
+		insert into
+		dept(deptName,position) values(#{deptName},#{position})
+	</insert>
+	<!-- 添加管理员信息 -->
+	
+	<insert id="Createadmin" parameterType="admin">
+		insert into
+		admin(admincid,adminName,adminsex,adminage,adminphoto,adminmall,adminaddress,adminuid,adminpassword) values(#{admincid},#{adminName},#{adminsex},#{adminage},#{adminphoto},#{adminmall},#{adminaddress},#{adminuid},#{adminpassword})
+	</insert>
+	<select id="doLogin" parameterType="employeeLogin" resultType="EmployeeLogin">
+		select *
+		from employeelogin where uid=#{uid} and PASSWORD=#{PASSWORD}
+	</select>
+
+
+<delete id="deleteUser" parameterType="user">
+		DELETE FROM employeelogin    
+	WHERE  uid=#{uid}
+	</delete>
+	<!-- 修改 -->
+	 <update id="updateUser" parameterType="employee">
+		update employee set
+		cid=#{cid},userName=#{userName},age=#{age} where id=#{id}
+	</update> 
+	<!--根据id找到账号密码进行判断  -->
+	<select id="queryiD" parameterType="employeeLogin" resultType="employeeLogin">
+		
+		select *
+		from employeelogin where uid=#{uid}
+	</select>
+	<!-- 查询管理者登陆管理者模式 -->
+	<select id="queryadmin" parameterType="double" resultType="admin">
+		select *
+		from admin where adminuid=#{uid}
+	</select>
+	<!-- 根据cid查询员工信息表 -->
+	<select id="querEmployee" parameterType="int" resultType="Employee">
+		
+		select *
+		from employee where cid=#{cid}
+	</select>
+	<!-- 查询公告数据库找到公告 -->
+	<select id="queryannouncement" parameterType="announcement" resultType="announcement">
+		
+		select *
+		from announcement 
+	</select>
+	<select id="queryUser" parameterType="employeeLogin" resultType="employeeLogin">
+		
+		select *
+		from employeelogin 
+	</select>
+	 <select id="queryUser2" parameterType="user" resultType="user">
+	SELECT *
+	FROM employee,employeelogin    
+	WHERE employee.id=employeelogin.cid 
+<!-- 	select *
+		from employee
+		 -->
+	</select>
+	<select id="queryUserById" parameterType="String" resultType="user">
+		select * from employee,employeelogin 
+		where employee.id=employeelogin.cid and userName=#{userName}
+	</select> 
+	<!-- 根据id查看登陆人 -->
+	<select id="querUserID" parameterType="int" resultType="user">
+		select * from employee,employeelogin 
+		where employee.id=employeelogin.cid and uid=#{uid}
+	</select> 
+	
+	<select id="queryuserName" parameterType="int" resultType="user">
+		select * from employee,employeelogin 
+		where employee.id=employeelogin.cid and uid=#{uid}
+	</select> 
+		<select id="querycount" parameterType="int" resultType="user">
+	       SELECT * FROM employee,employeelogin WHERE
+	       employee.id=employeelogin.cid ORDER BY uid DESC LIMIT #{0},#{1} 
+	 	</select> 
+	 <!--  -->
+</mapper>

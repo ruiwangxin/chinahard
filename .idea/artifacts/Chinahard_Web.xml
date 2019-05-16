@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Chinahard:Web">
+    <output-path>$PROJECT_DIR$/classes/artifacts/Chinahard_Web</output-path>
+    <root id="archive" name="Chinahard_Web.war">
+      <element id="artifact" artifact-name="Chinahard:Web exploded" />
+    </root>
+  </artifact>
+</component>
